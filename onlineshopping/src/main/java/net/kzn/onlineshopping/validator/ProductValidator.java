@@ -1,9 +1,8 @@
 package net.kzn.onlineshopping.validator;
 
+import net.kzn.shoppingbackend.dto.Product;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-
-import net.kzn.shoppingbackend.dto.Product;
 
 public class ProductValidator implements Validator {
 

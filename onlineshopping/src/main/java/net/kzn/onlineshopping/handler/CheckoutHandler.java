@@ -1,28 +1,20 @@
 package net.kzn.onlineshopping.handler;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import net.kzn.onlineshopping.model.CheckoutModel;
 import net.kzn.onlineshopping.model.UserModel;
 import net.kzn.shoppingbackend.dao.CartLineDAO;
 import net.kzn.shoppingbackend.dao.ProductDAO;
 import net.kzn.shoppingbackend.dao.UserDAO;
-import net.kzn.shoppingbackend.dto.Address;
-import net.kzn.shoppingbackend.dto.Cart;
-import net.kzn.shoppingbackend.dto.CartLine;
-import net.kzn.shoppingbackend.dto.OrderDetail;
-import net.kzn.shoppingbackend.dto.OrderItem;
-import net.kzn.shoppingbackend.dto.Product;
-import net.kzn.shoppingbackend.dto.User;
+import net.kzn.shoppingbackend.dto.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Component
 public class CheckoutHandler {
@@ -81,7 +73,6 @@ public class CheckoutHandler {
         addresses.add(addresses.size(), userDAO.getBillingAddress(model.getUser().getId()));
 
         return addresses;
-
     }
 
     public String saveAddressSelection(CheckoutModel checkoutModel, int shippingId) {
@@ -95,7 +86,6 @@ public class CheckoutHandler {
         checkoutModel.setShipping(shipping);
 
         return transitionValue;
-
     }
 
     public String saveAddress(CheckoutModel checkoutModel, Address shipping) {
@@ -112,7 +102,6 @@ public class CheckoutHandler {
         checkoutModel.setShipping(shipping);
 
         return transitionValue;
-
     }
 
     public String saveOrder(CheckoutModel checkoutModel) {
@@ -196,7 +185,6 @@ public class CheckoutHandler {
     public OrderDetail getOrderDetail(CheckoutModel checkoutModel) {
         return checkoutModel.getOrderDetail();
     }
-
 }
 
 

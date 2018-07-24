@@ -1,19 +1,16 @@
 package net.kzn.onlineshopping.service;
 
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import net.kzn.onlineshopping.model.UserModel;
 import net.kzn.shoppingbackend.dao.CartLineDAO;
 import net.kzn.shoppingbackend.dao.ProductDAO;
-import net.kzn.shoppingbackend.dao.UserDAO;
 import net.kzn.shoppingbackend.dto.Cart;
 import net.kzn.shoppingbackend.dto.CartLine;
 import net.kzn.shoppingbackend.dto.Product;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Service("cartService")
 public class CartService {

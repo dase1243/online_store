@@ -1,24 +1,19 @@
 package net.kzn.onlineshopping.util;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URL;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.*;
+import java.net.URL;
+
 public class FileUtil {
 
     private static final String ABS_PATH = "/home/dreikaa/Projects/online-shopping/onlineshopping/src/main/webapp/assets/images/";
-//    private static final String ABS_PATH = "E:/JAVAApp/online-shopping/onlineshopping/src/main/webapp/assets/images/";
-    private static String REAL_PATH = null;
     private static final Logger logger = LoggerFactory.getLogger(FileUtil.class);
+    //    private static final String ABS_PATH = "E:/JAVAApp/online-shopping/onlineshopping/src/main/webapp/assets/images/";
+    private static String REAL_PATH = null;
 
     public static boolean uploadFile(HttpServletRequest request, MultipartFile file, String code) {
         // get the real server path

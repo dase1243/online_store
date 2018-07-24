@@ -1,12 +1,12 @@
 package net.kzn.onlineshopping.exception;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 @ControllerAdvice
 public class GlobalDefaultExceptionHandler {
@@ -49,8 +49,8 @@ public class GlobalDefaultExceptionHandler {
 
         mv.addObject("errorTitle", "Contact Your Administrator!!");
 
-		
-		/* only for debugging your application*/
+
+        /* only for debugging your application*/
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
 

@@ -1,17 +1,15 @@
 package net.kzn.onlineshopping.controller;
 
-import javax.servlet.http.HttpSession;
-
+import net.kzn.onlineshopping.model.UserModel;
+import net.kzn.shoppingbackend.dao.UserDAO;
+import net.kzn.shoppingbackend.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import net.kzn.onlineshopping.model.UserModel;
-import net.kzn.shoppingbackend.dao.UserDAO;
-import net.kzn.shoppingbackend.dto.Cart;
-import net.kzn.shoppingbackend.dto.User;
+import javax.servlet.http.HttpSession;
 
 @ControllerAdvice
 public class GlobalController {

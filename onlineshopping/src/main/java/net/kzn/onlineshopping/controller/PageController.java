@@ -1,11 +1,10 @@
 package net.kzn.onlineshopping.controller;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import net.kzn.onlineshopping.exception.ProductNotFoundException;
+import net.kzn.shoppingbackend.dao.CategoryDAO;
+import net.kzn.shoppingbackend.dao.ProductDAO;
+import net.kzn.shoppingbackend.dto.Category;
+import net.kzn.shoppingbackend.dto.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import net.kzn.onlineshopping.exception.ProductNotFoundException;
-import net.kzn.shoppingbackend.dao.CategoryDAO;
-import net.kzn.shoppingbackend.dao.ProductDAO;
-import net.kzn.shoppingbackend.dto.Category;
-import net.kzn.shoppingbackend.dto.Product;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class PageController {
@@ -71,10 +67,10 @@ public class PageController {
         return mv;
     }
 
-	
-	/*
-	 * Methods to load all the products and based on category
-	 * */
+
+    /*
+     * Methods to load all the products and based on category
+     * */
 
     @RequestMapping(value = "/show/all/products")
     public ModelAndView showAllProducts() {
@@ -108,11 +104,11 @@ public class PageController {
         mv.addObject("userClickCategoryProducts", true);
         return mv;
     }
-	
-	
-	/*
-	 * Viewing a single product
-	 * */
+
+
+    /*
+     * Viewing a single product
+     * */
 
     @RequestMapping(value = "/show/{id}/product")
     public ModelAndView showSingleProduct(@PathVariable int id) throws ProductNotFoundException {
