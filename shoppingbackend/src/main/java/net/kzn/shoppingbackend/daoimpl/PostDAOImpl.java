@@ -1,7 +1,7 @@
 package net.kzn.shoppingbackend.daoimpl;
 
-import net.kzn.shoppingbackend.dao.ProductDAO;
-import net.kzn.shoppingbackend.dto.Product;
+import net.kzn.shoppingbackend.dao.PostDAO;
+import net.kzn.shoppingbackend.dto.Post;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -9,21 +9,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
-@Repository("productDAO")
+@Repository("postDAO")
 @Transactional
-public class ProductDAOImpl implements ProductDAO {
+public class PostDAOImpl implements PostDAO {
 
     @Autowired
     private SessionFactory sessionFactory;
 
     //Get
     @Override
-    public Product get(int productId) {
+    public Post get(int postId) {
         try {
             return sessionFactory
                     .getCurrentSession()
-                    .get(Product.class, Integer.valueOf(productId));
+                    .get(Post.class, Integer.valueOf(postId));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -32,21 +31,20 @@ public class ProductDAOImpl implements ProductDAO {
 
     //List
     @Override
-    public List<Product> list() {
+    public List<Post> list() {
         return sessionFactory
                 .getCurrentSession()
-                .createQuery("FROM Product", Product.class)
+                .createQuery("FROM Post", Post.class)
                 .getResultList();
     }
 
-
     //INSERT
     @Override
-    public boolean add(Product product) {
+    public boolean add(Post post) {
         try {
             sessionFactory
                     .getCurrentSession()
-                    .persist(product);
+                    .persist(post);
             return true;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -56,11 +54,11 @@ public class ProductDAOImpl implements ProductDAO {
 
     //UPDATE
     @Override
-    public boolean update(Product product) {
+    public boolean update(Post post) {
         try {
             sessionFactory
                     .getCurrentSession()
-                    .update(product);
+                    .update(post);
             return true;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -71,12 +69,11 @@ public class ProductDAOImpl implements ProductDAO {
 
     //DELETE
     @Override
-    public boolean delete(Product product) {
+    public boolean delete(Post post) {
         try {
-
-            product.setActive(false);
+            post.setActive(false);
             // call the update method
-            return this.update(product);
+            return this.update(post);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -84,31 +81,31 @@ public class ProductDAOImpl implements ProductDAO {
     }
 
     @Override
-    public List<Product> listActiveProducts() {
-        String selectActiveProducts = "FROM Product WHERE active = :active";
+    public List<Post> listActivePosts() {
+        String selectActivePosts = "FROM Post WHERE active = :active";
         return sessionFactory
                 .getCurrentSession()
-                .createQuery(selectActiveProducts, Product.class)
+                .createQuery(selectActivePosts, Post.class)
                 .setParameter("active", true)
                 .getResultList();
     }
 
-    @Override
-    public List<Product> listActiveProductsByCategory(int categoryId) {
-        String selectActiveProductsByCategory = "FROM Product WHERE active = :active AND categoryId = :categoryId";
-        return sessionFactory
-                .getCurrentSession()
-                .createQuery(selectActiveProductsByCategory, Product.class)
-                .setParameter("active", true)
-                .setParameter("categoryId", categoryId)
-                .getResultList();
-    }
+//    @Override
+//    public List<Post> listActivePostsByTag(int categoryId) {
+//        String selectActivePostsByCategory = "FROM Post WHERE active = :active AND categoryTag = :categoryTag";
+//        return sessionFactory
+//                .getCurrentSession()
+//                .createQuery(selectActivePostsByCategory, Post.class)
+//                .setParameter("active", true)
+//                .setParameter("categoryId", categoryId)
+//                .getResultList();
+//    }
 
     @Override
-    public List<Product> getLatestActiveProducts(int count) {
+    public List<Post> getLatestActivePosts(int count) {
         return sessionFactory
                 .getCurrentSession()
-                .createQuery("FROM Product WHERE active = :active ORDER BY id", Product.class)
+                .createQuery("FROM Post WHERE active = :active ORDER BY id", Post.class)
                 .setParameter("active", true)
                 .setFirstResult(0)
                 .setMaxResults(count)
@@ -116,16 +113,13 @@ public class ProductDAOImpl implements ProductDAO {
     }
 
     @Override
-    public List<Product> getProductsByParam(String param, int count) {
-
-        String query = "FROM Product WHERE active = true ORDER BY " + param + " DESC";
-
+    public List<Post> getPostsByParam(String param, int count) {
+        String query = "FROM Post WHERE active = true ORDER BY " + param + " DESC";
         return sessionFactory
                 .getCurrentSession()
-                .createQuery(query, Product.class)
+                .createQuery(query, Post.class)
                 .setFirstResult(0)
                 .setMaxResults(count)
                 .getResultList();
     }
-
 }

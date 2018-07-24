@@ -18,7 +18,6 @@ public interface ProductDAO {
 
     List<Product> getProductsByParam(String param, int count);
 
-
     // business methods
     List<Product> listActiveProducts();
 

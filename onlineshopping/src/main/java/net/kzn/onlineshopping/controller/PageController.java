@@ -1,9 +1,12 @@
 package net.kzn.onlineshopping.controller;
 
+import net.kzn.onlineshopping.exception.PostNotFoundException;
 import net.kzn.onlineshopping.exception.ProductNotFoundException;
 import net.kzn.shoppingbackend.dao.CategoryDAO;
+import net.kzn.shoppingbackend.dao.PostDAO;
 import net.kzn.shoppingbackend.dao.ProductDAO;
 import net.kzn.shoppingbackend.dto.Category;
+import net.kzn.shoppingbackend.dto.Post;
 import net.kzn.shoppingbackend.dto.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +33,9 @@ public class PageController {
 
     @Autowired
     private ProductDAO productDAO;
+
+    @Autowired
+    private PostDAO postDAO;
 
     @RequestMapping(value = {"/", "/home", "/index"})
     public ModelAndView index(@RequestParam(name = "logout", required = false) String logout) {
@@ -67,11 +73,7 @@ public class PageController {
         return mv;
     }
 
-
-    /*
-     * Methods to load all the products and based on category
-     * */
-
+    // Methods to load all the products and based on category
     @RequestMapping(value = "/show/all/products")
     public ModelAndView showAllProducts() {
         ModelAndView mv = new ModelAndView("page");
@@ -81,6 +83,16 @@ public class PageController {
         mv.addObject("categories", categoryDAO.list());
 
         mv.addObject("userClickAllProducts", true);
+        return mv;
+    }
+
+    // Methods to load all the posts and based on category
+    @RequestMapping(value = "/show/all/posts")
+    public ModelAndView showAllPosts() {
+        ModelAndView mv = new ModelAndView("page");
+        mv.addObject("title", "All Posts");
+
+        mv.addObject("userClickAllPosts", true);
         return mv;
     }
 
@@ -105,11 +117,7 @@ public class PageController {
         return mv;
     }
 
-
-    /*
-     * Viewing a single product
-     * */
-
+    // Viewing a single product
     @RequestMapping(value = "/show/{id}/product")
     public ModelAndView showSingleProduct(@PathVariable int id) throws ProductNotFoundException {
 
@@ -130,9 +138,30 @@ public class PageController {
         mv.addObject("userClickShowProduct", true);
 
         return mv;
-
     }
 
+    // Viewing a single post
+    @RequestMapping(value = "/show/{id}/post")
+    public ModelAndView showSinglePost(@PathVariable int id) throws PostNotFoundException {
+
+        ModelAndView mv = new ModelAndView("page");
+
+        Post post = postDAO.get(id);
+
+        if (post == null) throw new PostNotFoundException();
+
+        // update the view count
+        post.setViews(post.getViews() + 1);
+        postDAO.update(post);
+        //---------------------------
+
+        mv.addObject("title", post.getTitle());
+        mv.addObject("post", post);
+
+        mv.addObject("userClickShowPost", true);
+
+        return mv;
+    }
 
     @RequestMapping(value = "/membership")
     public ModelAndView register() {
@@ -142,7 +171,6 @@ public class PageController {
 
         return mv;
     }
-
 
     @RequestMapping(value = "/login")
     public ModelAndView login(@RequestParam(name = "error", required = false) String error,
@@ -169,7 +197,6 @@ public class PageController {
 
         return "redirect:/login?logout";
     }
-
 
     @RequestMapping(value = "/access-denied")
     public ModelAndView accessDenied() {

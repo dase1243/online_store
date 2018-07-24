@@ -57,7 +57,6 @@ public class ManagementController {
         }
 
         return mv;
-
     }
 
 
@@ -72,7 +71,6 @@ public class ManagementController {
         mv.addObject("product", productDAO.get(id));
 
         return mv;
-
     }
 
 
@@ -96,7 +94,6 @@ public class ManagementController {
             return "page";
         }
 
-
         if (mProduct.getId() == 0) {
             productDAO.add(mProduct);
         } else {
@@ -111,7 +108,6 @@ public class ManagementController {
         return "redirect:/manage/product?success=product";
     }
 
-
     @RequestMapping(value = "/product/{id}/activation", method = RequestMethod.GET)
     @ResponseBody
     public String managePostProductActivation(@PathVariable int id) {
@@ -122,13 +118,11 @@ public class ManagementController {
         return (isActive) ? "Product Dectivated Successfully!" : "Product Activated Successfully";
     }
 
-
     @RequestMapping(value = "/category", method = RequestMethod.POST)
     public String managePostCategory(@ModelAttribute("category") Category mCategory, HttpServletRequest request) {
         categoryDAO.add(mCategory);
         return "redirect:" + request.getHeader("Referer") + "?success=category";
     }
-
 
     @ModelAttribute("categories")
     public List<Category> modelCategories() {
@@ -141,5 +135,3 @@ public class ManagementController {
     }
 
 }
-
-	

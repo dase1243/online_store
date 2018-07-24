@@ -1,6 +1,8 @@
 package net.kzn.onlineshopping.controller;
 
+import net.kzn.shoppingbackend.dao.PostDAO;
 import net.kzn.shoppingbackend.dao.ProductDAO;
+import net.kzn.shoppingbackend.dto.Post;
 import net.kzn.shoppingbackend.dto.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +18,6 @@ public class JsonDataController {
 
     @Autowired
     private ProductDAO productDAO;
-
 
     @RequestMapping("/admin/all/products")
     @ResponseBody
@@ -47,5 +48,41 @@ public class JsonDataController {
     public List<Product> getMostPurchasedProducts() {
         return productDAO.getProductsByParam("purchases", 5);
     }
+
+
+    @Autowired
+    private PostDAO postDAO;
+
+    @RequestMapping("/admin/all/posts")
+    @ResponseBody
+    public List<Post> getAllPostsList() {
+        return postDAO.list();
+    }
+
+    @RequestMapping("/all/posts")
+    @ResponseBody
+    public List<Post> getAllPosts() {
+        return postDAO.listActivePosts();
+    }
+
+//    @RequestMapping("/category/{id}/posts")
+//    @ResponseBody
+//    public List<Post> getPostsByCategory(@PathVariable int id) {
+//        return postDAO.listActivePostsByCategory(id);
+//    }
+
+    @RequestMapping("/mv/posts")
+    @ResponseBody
+    public List<Post> getMostViewedPosts() {
+        return postDAO.getPostsByParam("views", 5);
+    }
+
+    @RequestMapping("/mp/posts")
+    @ResponseBody
+    public List<Post> getMostPurchasedPosts() {
+        return postDAO.getPostsByParam("purchases", 5);
+    }
+
+
 
 }
